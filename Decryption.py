@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import os
-from cryptography.fernet import ferent
+from cryptography.fernet import Fernet
 
 files = []
 
 
 for file in os.listdir():
-    if file == "voldemort.py" or file == "thekey.key" or file == "Decryption.py":
+    if file == "Ransomware.py" or file == "thekey.key" or file == "Decryption.py":
         continue
     if os.path.isfile(file):
         files.append(file)
@@ -15,18 +15,17 @@ for file in os.listdir():
 print(files)
 
 with open("thekey.key", "rb") as key:
-    sceretkry = key.read()
+    secretkey = key.read()
 
 
 for file in files:
     with open(file, "rb") as thefile:
         contents = thefile.read()
-    contents_decrypted = ferent (key).decrypt(contents)
+    contents_decrypted = Fernet(secretkey).decrypt(contents)
     with open(file, "wb") as thefile:
         thefile.write(contents_decrypted)
 
 print("All Your Files Are Decrypted")
-
 
 
 
